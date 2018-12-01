@@ -190,10 +190,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9fb1191f62fcb2a4497332f4e9a285cc, type: 3}
   - {fileID: 21300004, guid: 9fb1191f62fcb2a4497332f4e9a285cc, type: 3}
   idleSprite: {fileID: 21300000, guid: 9fb1191f62fcb2a4497332f4e9a285cc, type: 3}
+  carriedSprite: {fileID: 21300000, guid: 1290dafcfa523834a876144feb741f50, type: 3}
   walkSpriteTime: 0.1
-  direction: -1
+  direction: 1
   movementFactor: 1.5
   isGrounded: 0
+  isCarried: 0
 --- !u!212 &212360544735698154
 SpriteRenderer:
   m_ObjectHideFlags: 1

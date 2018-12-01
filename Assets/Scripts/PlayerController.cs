@@ -31,17 +31,24 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isLifting = false;
     [SerializeField] private bool isCarrying = false;
     [SerializeField] private float liftTimeOut;
-
+    [SerializeField] private float liftRayCastDistance;
+    [SerializeField] private LayerMask liftRayCastMask;
+    [SerializeField] private Vector2 throwForce;
     private float nextLiftTime;
+
     private new Rigidbody2D rigidbody2D;
     private Collider2D footCollider;
-
+    private Transform pickupPoint;
+    private Transform carryPoint;
+    private Transform carriedObject;
     // Use this for initialization
     void Start()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
         footCollider = transform.Find("FootCollider").GetComponent<Collider2D>();
+        pickupPoint = transform.Find("PickupPoint");
+        carryPoint = transform.Find("CarryPoint");
     }
 
     // Update is called once per frame
@@ -84,9 +91,24 @@ public class PlayerController : MonoBehaviour
             animState = AnimState.IDLE;
         }
         rigidbody2D.velocity = new Vector2(moveHoriz, rigidbody2D.velocity.y);
-        if (Input.GetButtonDown("Fire1") && isGrounded ) {
-            isGrounded = false;
-            rigidbody2D.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+        if (!isLifting)
+        {
+            if (Input.GetButtonDown("Fire1") && isGrounded)
+            {
+                isGrounded = false;
+                rigidbody2D.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            }
+            if (Input.GetButtonDown("Fire2"))
+            {
+                if (isCarrying)
+                {
+                    DoThrow();
+                }
+                else
+                {
+                    DoLift();
+                }
+            }
         }
     }
 
@@ -95,6 +117,10 @@ public class PlayerController : MonoBehaviour
         if (isLifting)
         {
             spriteRenderer.sprite = liftSprite;
+            if (Time.time > nextLiftTime)
+            {
+                isLifting = false;
+            }
         } else {
             switch (animState)
             {
@@ -127,6 +153,32 @@ public class PlayerController : MonoBehaviour
                     break;
             }
         }
+    }
+
+    void DoLift()
+    {
+        isLifting = true;
+        nextLiftTime = Time.time + liftTimeOut;
+        RaycastHit2D raycastHit = Physics2D.Raycast(pickupPoint.position, new Vector2(transform.localScale.x, 0),
+                                                    liftRayCastDistance, liftRayCastMask);
+        if (raycastHit.transform)
+        {
+            carriedObject = raycastHit.transform;
+            Debug.Log("Lifting " + raycastHit.transform);
+            carriedObject.SetParent(carryPoint);
+            carriedObject.localPosition = Vector3.zero; // at the carry point
+            carriedObject.localScale = Vector3.one;
+            isCarrying = true;
+            isLifting = false;
+            carriedObject.GetComponent<Egg>().Carry(); // assuming only eggs can be carried.
+        }
+    }
+
+    void DoThrow()
+    {
+        isCarrying = false;
+        carriedObject.SetParent(null);
+        carriedObject.GetComponent<Egg>().Throw(throwForce * transform.localScale);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

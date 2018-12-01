@@ -48,16 +48,13 @@ public class Egg : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        // don't collide with terrain when jumping up
+        // don't collide with terrain when moving up
         if (rigidbody2D.velocity.y > 0)
         {
             footCollider.enabled = false;
-            isGrounded = false;
         }
-        else
+        else if (rigidbody2D.velocity.y < -0.1)
         {
-            if (rigidbody2D.velocity.y < -0.1)
-                isGrounded = false;
             footCollider.enabled = true;
         }
     }
@@ -91,9 +88,9 @@ public class Egg : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log("Egg Collided: " + collision.collider + collision.otherCollider);
         if (collision.otherCollider == footCollider)
         {
-            Debug.Log("Landed!");
             isGrounded = true;
             animState = AnimState.WALKING;
         } else if (collision.otherCollider == turnPoint)
@@ -104,9 +101,30 @@ public class Egg : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "TurnPoint")
+        if (collision.gameObject.tag == "TurnPoint" && isGrounded)
             {
             direction *= -1;
+        }
+    }
+
+    public void Carry()
+    {
+        isCarried = true;
+        rigidbody2D.simulated = false;
+    }
+
+    public void Throw(Vector2 throwForce)
+    {
+        isCarried = false;
+        isGrounded = false;
+        rigidbody2D.simulated = true;
+        rigidbody2D.AddForce(throwForce, ForceMode2D.Impulse);
+        if (throwForce.x < 0)
+        {
+            direction = -1;
+        } else
+        {
+            direction = 1;
         }
     }
 }
