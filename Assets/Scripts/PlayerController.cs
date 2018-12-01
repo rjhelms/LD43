@@ -20,6 +20,10 @@ public class PlayerController : MonoBehaviour
     private float nextAnimSpriteTime;
     private SpriteRenderer spriteRenderer;
 
+    [Header("Movement Properties")]
+    [SerializeField] private Vector2 movementFactor;
+    [SerializeField] private float movementDeadZone;
+
     // Use this for initialization
     void Start()
     {
@@ -30,8 +34,30 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         DoAnimation();
+        DoInput();
     }
 
+    void DoInput()
+    {
+        Vector2 moveVector = new Vector2(0, 0);
+        float rawInputHoriz = Input.GetAxisRaw("Horizontal");
+        if (Mathf.Abs(rawInputHoriz) > movementDeadZone)
+        {
+            moveVector += new Vector2(rawInputHoriz, 0);
+            moveVector *= movementFactor;
+            GetComponent<Rigidbody2D>().velocity = moveVector;
+            animState = AnimState.WALKING;
+            if (rawInputHoriz < 0)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            } else
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+        } else {
+            animState = AnimState.IDLE;
+        }
+    }
     void DoAnimation()
     {
         switch (animState)
