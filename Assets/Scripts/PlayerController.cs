@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AnimState animState;
     [SerializeField] private Sprite[] walkSprites;
     [SerializeField] private Sprite idleSprite;
+    [SerializeField] private Sprite[] carryWalkSprites;
+    [SerializeField] private Sprite carryIdleSprite;
+    [SerializeField] private Sprite liftSprite;
     [SerializeField] private float walkSpriteTime;
 
     private int currentAnimSprite;
@@ -25,7 +28,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float movementDeadZone;
     [SerializeField] private float jumpForce;
     [SerializeField] private bool isGrounded = true;
+    [SerializeField] private bool isLifting = false;
+    [SerializeField] private bool isCarrying = false;
+    [SerializeField] private float liftTimeOut;
 
+    private float nextLiftTime;
     private new Rigidbody2D rigidbody2D;
     private Collider2D footCollider;
 
@@ -85,21 +92,40 @@ public class PlayerController : MonoBehaviour
 
     void DoAnimation()
     {
-        switch (animState)
+        if (isLifting)
         {
-            case AnimState.IDLE:
-                spriteRenderer.sprite = idleSprite;
-                nextAnimSpriteTime = Time.time;
-                break;
-            case AnimState.WALKING:
-                if (Time.time > nextAnimSpriteTime)
-                {
-                    currentAnimSprite++;
-                    currentAnimSprite %= walkSprites.Length;
-                    spriteRenderer.sprite = walkSprites[currentAnimSprite];
-                    nextAnimSpriteTime += walkSpriteTime;
-                }
-                break;
+            spriteRenderer.sprite = liftSprite;
+        } else {
+            switch (animState)
+            {
+                case AnimState.IDLE:
+                    if (isCarrying)
+                    {
+                        spriteRenderer.sprite = carryIdleSprite;
+                    }
+                    else
+                    {
+                        spriteRenderer.sprite = idleSprite;
+                    }
+                    nextAnimSpriteTime = Time.time;
+                    break;
+                case AnimState.WALKING:
+                    if (Time.time > nextAnimSpriteTime)
+                    {
+                        currentAnimSprite++;
+                        currentAnimSprite %= walkSprites.Length;
+                        if (isCarrying)
+                        {
+                            spriteRenderer.sprite = carryWalkSprites[currentAnimSprite];
+                        }
+                        else
+                        {
+                            spriteRenderer.sprite = walkSprites[currentAnimSprite];
+                        }
+                        nextAnimSpriteTime += walkSpriteTime;
+                    }
+                    break;
+            }
         }
     }
 

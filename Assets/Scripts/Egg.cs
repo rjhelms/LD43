@@ -8,6 +8,7 @@ public class Egg : MonoBehaviour {
     [SerializeField] private AnimState animState;
     [SerializeField] private Sprite[] walkSprites;
     [SerializeField] private Sprite idleSprite;
+    [SerializeField] private Sprite carriedSprite;
     [SerializeField] private float walkSpriteTime;
     [SerializeField] private int direction = 1;
     private int currentAnimSprite;
@@ -17,7 +18,7 @@ public class Egg : MonoBehaviour {
     [Header("Movement Properties")]
     [SerializeField] private float movementFactor;
     [SerializeField] private bool isGrounded = true;
-
+    [SerializeField] private bool isCarried = false;
     private new Rigidbody2D rigidbody2D;
     private Collider2D footCollider;
     private Collider2D turnPoint;
@@ -63,21 +64,28 @@ public class Egg : MonoBehaviour {
 
     void DoAnimation()
     {
-        switch (animState)
+        if (isCarried)
         {
-            case AnimState.IDLE:
-                spriteRenderer.sprite = idleSprite;
-                nextAnimSpriteTime = Time.time;
-                break;
-            case AnimState.WALKING:
-                if (Time.time > nextAnimSpriteTime)
-                {
-                    currentAnimSprite++;
-                    currentAnimSprite %= walkSprites.Length;
-                    spriteRenderer.sprite = walkSprites[currentAnimSprite];
-                    nextAnimSpriteTime += walkSpriteTime;
-                }
-                break;
+            spriteRenderer.sprite = carriedSprite;
+        }
+        else
+        {
+            switch (animState)
+            {
+                case AnimState.IDLE:
+                    spriteRenderer.sprite = idleSprite;
+                    nextAnimSpriteTime = Time.time;
+                    break;
+                case AnimState.WALKING:
+                    if (Time.time > nextAnimSpriteTime)
+                    {
+                        currentAnimSprite++;
+                        currentAnimSprite %= walkSprites.Length;
+                        spriteRenderer.sprite = walkSprites[currentAnimSprite];
+                        nextAnimSpriteTime += walkSpriteTime;
+                    }
+                    break;
+            }
         }
     }
 
