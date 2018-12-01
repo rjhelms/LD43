@@ -1,0 +1,14 @@
+ZEUS NEEDS OMELETTES
+
+You are the king of the egg kingdom. Zeus demands offerings of omelettes - that is to say, your subjects - on the sacrifical frying pan.
+
+Naturally, your subjects don't appreciate being sacrificed, so they need to be appeased as well.
+
+BALANCING TWO HAPPINESS METERS
+- Zeus - falls over time, raised by sacrificing eggs
+- Eggs - falls when someone sees you carrying an egg, raised by ???
+
+- when either reaches 0, you lose - goal is to play for time
+
+STEALTH ELEMENTS
+- avoid being spotted! subjects have line of sight a certain distance in front of them
