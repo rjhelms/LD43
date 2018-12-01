@@ -2,47 +2,48 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-enum AnimState
-{
-    IDLE,
-    WALKING,
-}
-public class PlayerController : MonoBehaviour
-{
+public class Egg : MonoBehaviour {
 
     [Header("Sprite Properties")]
     [SerializeField] private AnimState animState;
     [SerializeField] private Sprite[] walkSprites;
     [SerializeField] private Sprite idleSprite;
     [SerializeField] private float walkSpriteTime;
-
+    [SerializeField] private int direction = 1;
     private int currentAnimSprite;
     private float nextAnimSpriteTime;
     private SpriteRenderer spriteRenderer;
 
     [Header("Movement Properties")]
     [SerializeField] private float movementFactor;
-    [SerializeField] private float movementDeadZone;
-    [SerializeField] private float jumpForce;
     [SerializeField] private bool isGrounded = true;
 
     private new Rigidbody2D rigidbody2D;
     private Collider2D footCollider;
-
+    private Collider2D turnPoint;
     // Use this for initialization
     void Start()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
         footCollider = transform.Find("FootCollider").GetComponent<Collider2D>();
+        turnPoint = transform.Find("TurnPoint").GetComponent<Collider2D>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
+	
+	// Update is called once per frame
+	void Update () {
         DoAnimation();
-        DoInput();
-    }
+		if (isGrounded)
+        {
+            float moveHoriz = direction * movementFactor;
+            rigidbody2D.velocity = new Vector2(moveHoriz, rigidbody2D.velocity.y);
+            transform.localScale = new Vector3(direction, 1, 1);
+            animState = AnimState.WALKING;
+        } else
+        {
+            animState = AnimState.IDLE;
+        }
+	}
 
     private void FixedUpdate()
     {
@@ -50,36 +51,13 @@ public class PlayerController : MonoBehaviour
         if (rigidbody2D.velocity.y > 0)
         {
             footCollider.enabled = false;
-        } else
-        {
-            footCollider.enabled = true;
-        }
-    }
-    void DoInput()
-    {
-        float rawInputHoriz = Input.GetAxisRaw("Horizontal");
-        float moveHoriz = 0;
-        if (Mathf.Abs(rawInputHoriz) > movementDeadZone)
-        {
-            if (rawInputHoriz < 0)
-            {
-                moveHoriz = -1;
-                transform.localScale = new Vector3(-1, 1, 1);
-            } else
-            {
-                moveHoriz = 1;
-                transform.localScale = new Vector3(1, 1, 1);
-            }
-            moveHoriz *= movementFactor;
-            animState = AnimState.WALKING;
-        } else {
-            moveHoriz = 0;
-            animState = AnimState.IDLE;
-        }
-        rigidbody2D.velocity = new Vector2(moveHoriz, rigidbody2D.velocity.y);
-        if (Input.GetButtonDown("Fire1") && isGrounded ) {
             isGrounded = false;
-            rigidbody2D.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+        }
+        else
+        {
+            if (rigidbody2D.velocity.y < -0.1)
+                isGrounded = false;
+            footCollider.enabled = true;
         }
     }
 
@@ -109,6 +87,18 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Landed!");
             isGrounded = true;
+            animState = AnimState.WALKING;
+        } else if (collision.otherCollider == turnPoint)
+        {
+            direction *= -1;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "TurnPoint")
+            {
+            direction *= -1;
         }
     }
 }
