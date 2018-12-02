@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TurnPoint
   - Enemy
+  - PowerUp
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - AITurnPoint
   - Player
   - Goal
-  - 
+  - PowerUp
   - 
   - 
   - 

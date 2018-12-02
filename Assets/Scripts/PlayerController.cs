@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
     private Transform pickupPoint;
     private Transform carryPoint;
     private Transform carriedObject;
+    private GameController controller;
     // Use this for initialization
     void Start()
     {
@@ -49,6 +50,7 @@ public class PlayerController : MonoBehaviour
         footCollider = transform.Find("FootCollider").GetComponent<Collider2D>();
         pickupPoint = transform.Find("PickupPoint");
         carryPoint = transform.Find("CarryPoint");
+        controller = FindObjectOfType<GameController>();
     }
 
     // Update is called once per frame
@@ -187,6 +189,14 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Landed!");
             isGrounded = true;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "PowerUp")
+        {
+            controller.GetMoney(collision.gameObject);
         }
     }
 }
