@@ -196,6 +196,10 @@ MonoBehaviour:
   movementFactor: 1.5
   isGrounded: 0
   isCarried: 0
+  jumpForce: {x: 0.5, y: 2.5}
+  jumpChance: 0.1
+  jumpCheckTime: 2
+  jumpCheckTimeFudge: 0.2
 --- !u!212 &212360544735698154
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -268,8 +268,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AssetsPPU: 32
-  m_RefResolutionX: 480
-  m_RefResolutionY: 360
+  m_RefResolutionX: 320
+  m_RefResolutionY: 240
   m_UpscaleRT: 0
   m_PixelSnapping: 1
   m_CropFrameX: 1
@@ -1093,11 +1093,6 @@ Prefab:
     - target: {fileID: 4326353384266574, guid: 9db2d4735a3d7df4e8395b2aa12e745d, type: 2}
       propertyPath: m_RootOrder
       value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 50798963662221702, guid: 9db2d4735a3d7df4e8395b2aa12e745d,
-        type: 2}
-      propertyPath: m_Interpolate
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9db2d4735a3d7df4e8395b2aa12e745d, type: 2}

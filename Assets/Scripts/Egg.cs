@@ -19,6 +19,13 @@ public class Egg : MonoBehaviour {
     [SerializeField] private float movementFactor;
     [SerializeField] private bool isGrounded = true;
     [SerializeField] private bool isCarried = false;
+    [SerializeField] private Vector2 jumpForce;
+    [SerializeField] private float jumpChance;
+    [SerializeField] private float jumpCheckTime;
+    [SerializeField] private float jumpCheckTimeFudge;
+
+    private float nextJumpCheckTime;
+
     private new Rigidbody2D rigidbody2D;
     private Collider2D footCollider;
     private Collider2D turnPoint;
@@ -29,6 +36,7 @@ public class Egg : MonoBehaviour {
         rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
         footCollider = transform.Find("FootCollider").GetComponent<Collider2D>();
         turnPoint = transform.Find("TurnPoint").GetComponent<Collider2D>();
+        SetNextJumpCheckTime();
     }
 	
 	// Update is called once per frame
@@ -36,10 +44,22 @@ public class Egg : MonoBehaviour {
         DoAnimation();
 		if (isGrounded)
         {
-            float moveHoriz = direction * movementFactor;
-            rigidbody2D.velocity = new Vector2(moveHoriz, rigidbody2D.velocity.y);
-            transform.localScale = new Vector3(direction, 1, 1);
-            animState = AnimState.WALKING;
+            if (Time.time > nextJumpCheckTime)
+            {
+                SetNextJumpCheckTime();
+                if (Random.value < jumpChance)
+                {
+                    rigidbody2D.AddForce(new Vector2(jumpForce.x * direction, jumpForce.y), ForceMode2D.Impulse);
+                    isGrounded = false;
+                }
+            }
+            else
+            {
+                float moveHoriz = direction * movementFactor;
+                rigidbody2D.velocity = new Vector2(moveHoriz, rigidbody2D.velocity.y);
+                transform.localScale = new Vector3(direction, 1, 1);
+                animState = AnimState.WALKING;
+            }
         } else
         {
             animState = AnimState.IDLE;
@@ -84,6 +104,12 @@ public class Egg : MonoBehaviour {
                     break;
             }
         }
+    }
+
+    void SetNextJumpCheckTime()
+    {
+        nextJumpCheckTime = Time.time + jumpCheckTime;
+        nextJumpCheckTime += Random.Range(-jumpCheckTimeFudge, jumpCheckTimeFudge);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
