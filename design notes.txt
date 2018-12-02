@@ -12,3 +12,13 @@ BALANCING TWO HAPPINESS METERS
 
 STEALTH ELEMENTS
 - avoid being spotted! subjects have line of sight a certain distance in front of them
+
+CORE GAMEPLAY:
+- pick up eggs, throw them into the sacrificial frying pan - this appeases Zeus!
+- if you're seen carrying an egg, Egg happiness is lowered
+- pick up coins at the treasury, and throw them out - this raises Egg happiness
+- Zeus happiness falls over time - some grace period after a sacrifice?
+
+SPAWNING
+- eggs spawn at houses - two or three on map? - targets a certain number
+- coins spawn at treasury on a timer
