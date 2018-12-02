@@ -6,19 +6,47 @@ Naturally, your subjects don't appreciate being sacrificed, so they need to be a
 
 BALANCING TWO HAPPINESS METERS
 - Zeus - falls over time, raised by sacrificing eggs
+	INDICATE ZEUS' ANGER BY LERPING BACKGROUND BTW BLUE AND BLACK!
 - Eggs - falls when someone sees you carrying an egg, raised by ???
-
 - when either reaches 0, you lose - goal is to play for time
 
 STEALTH ELEMENTS
 - avoid being spotted! subjects have line of sight a certain distance in front of them
 
 CORE GAMEPLAY:
-- pick up eggs, throw them into the sacrificial frying pan - this appeases Zeus!
-- if you're seen carrying an egg, Egg happiness is lowered
-- pick up coins at the treasury, and throw them out - this raises Egg happiness
-- Zeus happiness falls over time - some grace period after a sacrifice?
+- pick up eggs, throw them into the sacrificial frying pan - this appeases Zeus! - DONE
+- if you're seen carrying an egg, Egg happiness is lowered - DONE
+	- need to add some grace period to this I think - TODO
+- pick up coins at the treasury, and throw them out - this raises Egg happiness - DONE
+- Zeus happiness falls over time - some grace period after a sacrifice? - DONE
 
 SPAWNING
-- eggs spawn at houses - two or three on map? - targets a certain number
-- coins spawn at treasury on a timer
+- eggs spawn at houses - two or three on map? - targets a certain number - DONE
+- coins spawn at treasury on a timer - DONE
+
+LEVEL DESIGN
+- one big level - temple and treasury at top, ~3 levels below with houses
+
+BITS AND BOBS
+- UI
+	- meters for Zeus and Egg happiness - TODO
+	- coin display - TODO
+	- score display - MAYBE
+- world bounds
+	- bottom: just a floor
+	- left and right: bouncy walls I guess - TODO
+	- top: probably nothing - DONE (wow!)
+- win/lose screens - TODO
+- sound / music - TODO
+
+BALANCE
+- tweak jumping behaviour - after there are bounds in place - TODO
+- spawn tweaking - money and eggs - TODO
+- happiness tweaking
+	- Zeus - rise / fall / grace - TODO
+	- Egg - rise / fall - TODO
+	
+NICE TO HAVE
+- fudge factor for throws - MAYBE
+- score - MAYBE
+ 
