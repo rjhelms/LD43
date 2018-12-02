@@ -33,6 +33,7 @@ public class GameController : MonoBehaviour {
     [Header("UI Elements")]
     [SerializeField] private RectTransform godHappinessBar;
     [SerializeField] private RectTransform eggHappinessBar;
+    [SerializeField] private Text coinText;
     [SerializeField] private float happinessBarScaleFactor = 0.25f;
 
     [Header("Current Gameplay Values")]
@@ -104,6 +105,7 @@ public class GameController : MonoBehaviour {
     {
         eggHappinessBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, EggHappiness * happinessBarScaleFactor);
         godHappinessBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, GodHappiness * happinessBarScaleFactor);
+        coinText.text = string.Format("{0}", money);
     }
 
     private void EggSpawn()
