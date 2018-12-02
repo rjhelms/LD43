@@ -193,7 +193,7 @@ public class PlayerController : MonoBehaviour
     void DoThrow()
     {
         IsCarrying = false;
-        carriedObject.SetParent(null);
+        carriedObject.SetParent(controller.EggParent);
         carriedObject.GetComponent<Egg>().Throw(throwForce * transform.localScale);
     }
 
