@@ -44,6 +44,17 @@ public class GameController : MonoBehaviour {
 
     private float fadeStartTime;
 
+    [Header("Sound Elements")]
+    [SerializeField] private AudioClip playerJump;
+    [SerializeField] private AudioClip playerPickupEgg;
+    [SerializeField] private AudioClip playerPickupCoin;
+    [SerializeField] private AudioClip playerThrowEgg;
+    [SerializeField] private AudioClip eggCrack;
+    [SerializeField] private AudioClip eggShocked;
+    [SerializeField] private AudioClip eggCoin;
+    [SerializeField] private AudioClip gameOver;
+    [SerializeField] private AudioSource audioSource;
+
     [Header("Current Gameplay Values")]
     [SerializeField] private int money;
     [SerializeField] private int GodHappiness = 100;
@@ -163,6 +174,7 @@ public class GameController : MonoBehaviour {
 
     private void EggLose()
     {
+        audioSource.PlayOneShot(gameOver);
         ScoreManager.Instance.Score = (int)Mathf.Floor(Time.timeSinceLevelLoad);
         if (ScoreManager.Instance.Score >= ScoreManager.Instance.HiScore)
             ScoreManager.Instance.HiScore = ScoreManager.Instance.Score;
@@ -174,6 +186,7 @@ public class GameController : MonoBehaviour {
 
     private void GodLose()
     {
+        audioSource.PlayOneShot(gameOver);
         ScoreManager.Instance.Score = (int)Mathf.Floor(Time.timeSinceLevelLoad);
         if (ScoreManager.Instance.Score >= ScoreManager.Instance.HiScore)
             ScoreManager.Instance.HiScore = ScoreManager.Instance.Score;
@@ -194,6 +207,7 @@ public class GameController : MonoBehaviour {
 
     public void EggDied()
     {
+        audioSource.PlayOneShot(eggCrack);
         GodHappiness += godHappinessBoostSacrifice;
         nextGodHappinessTick = Time.time + godHappinessTickGrace;
         currentEggs--;
@@ -201,6 +215,7 @@ public class GameController : MonoBehaviour {
 
     public void EggAppeased(GameObject eggObject, GameObject coinObject)
     {
+        audioSource.PlayOneShot(eggCoin);
         Coin coin = coinObject.GetComponent<Coin>();
         if (coin.Active)
         {
@@ -211,6 +226,7 @@ public class GameController : MonoBehaviour {
 
     public void GetMoney(GameObject moneyObject)
     {
+        audioSource.PlayOneShot(playerPickupCoin);
         money += moneyBagValue;
         Destroy(moneyObject);
         moneyBagPresent = false;
@@ -219,6 +235,7 @@ public class GameController : MonoBehaviour {
 
     public void RegisterShock()
     {
+        audioSource.PlayOneShot(eggShocked);
         EggHappiness -= eggHappinessCostShock;
     }
 
@@ -231,6 +248,30 @@ public class GameController : MonoBehaviour {
         } else
         {
             return false;
+        }
+    }
+
+    public void PlayJumpSound()
+    {
+        if (state == 1)
+        {
+            audioSource.PlayOneShot(playerJump);
+        }
+    }
+
+    public void PlayPickupEggSound()
+    {
+        if (state == 1)
+        {
+            audioSource.PlayOneShot(playerPickupEgg);
+        }
+    }
+
+    public void PlayThrowEggSound()
+    {
+        if (state == 1)
+        {
+            audioSource.PlayOneShot(playerThrowEgg);
         }
     }
 }

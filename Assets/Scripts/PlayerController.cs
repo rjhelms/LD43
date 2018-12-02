@@ -123,6 +123,7 @@ public class PlayerController : MonoBehaviour
                 isGrounded = false;
                 jumps++;
                 rigidbody2D.AddForce(new Vector2(0, jumpForce / Mathf.Sqrt(jumps)), ForceMode2D.Impulse);
+                controller.PlayJumpSound();
             }
             if (Input.GetButtonDown("Fire1"))
             {
@@ -200,6 +201,7 @@ public class PlayerController : MonoBehaviour
             IsCarrying = true;
             isLifting = false;
             carriedObject.GetComponent<Egg>().Carry(); // assuming only eggs can be carried.
+            controller.PlayPickupEggSound();
         }
     }
 
@@ -208,6 +210,7 @@ public class PlayerController : MonoBehaviour
         IsCarrying = false;
         carriedObject.SetParent(controller.EggParent);
         carriedObject.GetComponent<Egg>().Throw(throwEggForce * transform.localScale);
+        controller.PlayThrowEggSound();
     }
 
     void ThrowCoin()

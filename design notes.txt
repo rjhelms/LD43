@@ -36,8 +36,20 @@ BITS AND BOBS
 	- bottom: just a floor - DONE
 	- left and right: bouncy walls I guess - DONE
 	- top: probably nothing - DONE (wow!)
-- win/lose screens - TODO
+- win/lose screens - DONE there is no winning lol
 - sound / music - TODO
+	sounds:
+		player jump - done - used
+		player pickup egg - done - used
+		player pickup coin - done - used
+		player throw egg - done
+		egg crack - done - used
+		egg shocked - done - used
+		egg coin - done - used
+		game over - done - used
+- title screen - TODO
+- instructions screen - MAYBE
+- submission assets - MAYBE (can do post compo if need be)
 
 BALANCE
 - tweak jumping behaviour - after there are bounds in place - IN PROGRESS

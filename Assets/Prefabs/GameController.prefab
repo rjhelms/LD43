@@ -84,6 +84,15 @@ MonoBehaviour:
   overlayStartColor: {r: 0, g: 0, b: 0, a: 1}
   overlayEndColor: {r: 0, g: 0, b: 0, a: 0}
   overlayFadeTime: 1
+  playerJump: {fileID: 8300000, guid: 04528a205b3c5d74fb3b7a3af3340c8b, type: 3}
+  playerPickupEgg: {fileID: 8300000, guid: c5c887f0b1b24194ca68d8f41371278c, type: 3}
+  playerPickupCoin: {fileID: 8300000, guid: f95b4b2a166a07942a6430466ea9d92f, type: 3}
+  playerThrowEgg: {fileID: 8300000, guid: ec515bcac86dd494ea46ebd7173ec185, type: 3}
+  eggCrack: {fileID: 8300000, guid: c020bbc6fdc133c43b0871bd47de1539, type: 3}
+  eggShocked: {fileID: 8300000, guid: db35a9185f41c064d8bf0429ec2a8e72, type: 3}
+  eggCoin: {fileID: 8300000, guid: 8121b97ef6acd5a46be802b671584aad, type: 3}
+  gameOver: {fileID: 8300000, guid: 6551909de397e9448a07e4f01c26d1c2, type: 3}
+  audioSource: {fileID: 0}
   money: 3
   GodHappiness: 100
   EggHappiness: 100
