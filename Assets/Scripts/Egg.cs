@@ -219,7 +219,6 @@ public class Egg : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Egg Collided: " + collision.collider + collision.otherCollider);
         if (collision.collider.tag == "Finish")
         {
             DoCrack();
@@ -237,6 +236,14 @@ public class Egg : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision)
     {
         direction *= -1;
+    }
+
+    public void SetRandomDirection()
+    {
+        direction = 1;
+        float choice = Random.value;
+        if (choice < 0.5f)
+            direction *= -1;
     }
 
     public void Carry()

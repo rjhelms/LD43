@@ -7,6 +7,9 @@ public class GameController : MonoBehaviour {
     public Transform EggParent;
     public Transform MoneyBagSpawnPoint;
     public GameObject MoneyBagPrefab;
+    public GameObject[] EggPrefabs;
+
+    [SerializeField] private GameObject[] eggSpawnPoints;
     [SerializeField] private Camera worldCamera;
     [SerializeField] private Color happyGodColor;
     [SerializeField] private Color angryGodColor;
@@ -20,20 +23,29 @@ public class GameController : MonoBehaviour {
     [SerializeField] private int godHappinessBoostSacrifice;
     [SerializeField] private float godHappinessTickLength;
     [SerializeField] private float godHappinessTickGrace;
-    
+    [SerializeField] private float eggNumberTarget;
+    [SerializeField] private float eggSpawnChanceMin;
+    [SerializeField] private float eggSpawnChanceMax;
+    [SerializeField] private float eggSpawnTickLength;
 
     [Header("Current Gameplay Values")]
     [SerializeField] private int money;
     [SerializeField] private int GodHappiness = 100;
     [SerializeField] private int EggHappiness = 100;
+    [SerializeField] private int currentEggs;
 
+    private float nextEggSpawnTick;
     private float nextGodHappinessTick;
     private bool moneyBagPresent;
     private float moneyBagNextSpawn;
+
     // Use this for initialization
     void Start () {
         moneyBagNextSpawn = Time.time + moneyBagSpawnTime;
         nextGodHappinessTick = Time.time + godHappinessTickGrace;
+        nextEggSpawnTick = Time.time + eggSpawnTickLength;
+        eggSpawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
+        currentEggs = EggParent.childCount;
 	}
 	
 	// Update is called once per frame
@@ -55,12 +67,34 @@ public class GameController : MonoBehaviour {
             GodHappiness -= godHappinessCostTick;
             nextGodHappinessTick = Time.time + godHappinessTickLength;
         }
+        if (Time.time > nextEggSpawnTick)
+        {
+            nextEggSpawnTick = Time.time + eggSpawnTickLength;
+            float eggSpawnChance = eggSpawnChanceMin;
+            float eggSpawnRange = eggSpawnChanceMax - eggSpawnChanceMin;
+            eggSpawnChance += eggSpawnRange * Mathf.Clamp01((eggNumberTarget - currentEggs) / eggNumberTarget);
+            Debug.Log(string.Format("{0} eggs of {1}, chance: {2}", currentEggs, eggNumberTarget, eggSpawnChance));
+            if (Random.value < eggSpawnChance)
+            {
+                EggSpawn();
+            }
+        }
 	}
+
+    private void EggSpawn()
+    {
+        Transform spawnPoint = eggSpawnPoints[Random.Range(0, eggSpawnPoints.Length)].transform;
+        GameObject prefab = EggPrefabs[Random.Range(0, EggPrefabs.Length)];
+        GameObject newEgg = Instantiate(prefab, spawnPoint.position, Quaternion.identity, EggParent);
+        newEgg.GetComponent<Egg>().SetRandomDirection();
+        currentEggs++;
+    }
 
     public void EggDied()
     {
         GodHappiness += godHappinessBoostSacrifice;
         nextGodHappinessTick = Time.time + godHappinessTickGrace;
+        currentEggs--;
     }
 
     public void GetMoney(GameObject moneyObject)

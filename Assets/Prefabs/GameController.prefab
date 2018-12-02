@@ -34,7 +34,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1018056432128308}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5438796, y: 6.5584908, z: -0.0126953125}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -55,6 +55,10 @@ MonoBehaviour:
   MoneyBagSpawnPoint: {fileID: 0}
   MoneyBagPrefab: {fileID: 1933263429622802, guid: 9c8e88b156204cc459a1a3217713e68e,
     type: 2}
+  EggPrefabs:
+  - {fileID: 1123789019991658, guid: 9db2d4735a3d7df4e8395b2aa12e745d, type: 2}
+  - {fileID: 1581608494776434, guid: 4815d142a7406d248975101fc878bf27, type: 2}
+  eggSpawnPoints: []
   worldCamera: {fileID: 0}
   happyGodColor: {r: 0.4431373, g: 0.5686275, b: 0.98823535, a: 1}
   angryGodColor: {r: 0.15686275, g: 0.14117648, b: 0.21568629, a: 0}
@@ -66,6 +70,11 @@ MonoBehaviour:
   godHappinessBoostSacrifice: 10
   godHappinessTickLength: 0.6
   godHappinessTickGrace: 3
+  eggNumberTarget: 20
+  eggSpawnChanceMin: 0.05
+  eggSpawnChanceMax: 0.8
+  eggSpawnTickLength: 1
   money: 3
   GodHappiness: 100
   EggHappiness: 100
+  currentEggs: 0
