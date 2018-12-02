@@ -203,7 +203,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.15}
-  m_Size: {x: 1.7, y: 0.15}
+  m_Size: {x: 1.325, y: 0.15}
   m_Direction: 1
 --- !u!50 &64506242
 Rigidbody2D:
@@ -579,56 +579,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4352084613194054, guid: 4815d142a7406d248975101fc878bf27,
     type: 2}
   m_PrefabInternal: {fileID: 1100515313}
---- !u!1 &1063179020
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1063179021}
-  - component: {fileID: 1063179022}
-  m_Layer: 0
-  m_Name: GameController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1063179021
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1063179020}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5438796, y: 6.5584908, z: -0.0126953125}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1063179022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1063179020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcaa3e905a56a7541a837437e8752623, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EggParent: {fileID: 1163342348}
-  MoneyBagSpawnPoint: {fileID: 279733185}
-  MoneyBagPrefab: {fileID: 1933263429622802, guid: 9c8e88b156204cc459a1a3217713e68e,
-    type: 2}
-  moneyBagSpawnTime: 5
-  moneyBagValue: 3
-  HappinessCostShock: 10
-  money: 3
-  GodHappiness: 100
-  EggHappiness: 100
 --- !u!1 &1088617713
 GameObject:
   m_ObjectHideFlags: 0
@@ -2922,6 +2872,63 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   throwForce: {x: 1.75, y: 1.75}
+--- !u!1001 &1490052997
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4387013692333158, guid: e5115124a081c4141ab712c9cc3074a8, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.5438796
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387013692333158, guid: e5115124a081c4141ab712c9cc3074a8, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 6.5584908
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387013692333158, guid: e5115124a081c4141ab712c9cc3074a8, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.0126953125
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387013692333158, guid: e5115124a081c4141ab712c9cc3074a8, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387013692333158, guid: e5115124a081c4141ab712c9cc3074a8, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387013692333158, guid: e5115124a081c4141ab712c9cc3074a8, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387013692333158, guid: e5115124a081c4141ab712c9cc3074a8, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387013692333158, guid: e5115124a081c4141ab712c9cc3074a8, type: 2}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 114280238685153042, guid: e5115124a081c4141ab712c9cc3074a8,
+        type: 2}
+      propertyPath: EggParent
+      value: 
+      objectReference: {fileID: 1163342348}
+    - target: {fileID: 114280238685153042, guid: e5115124a081c4141ab712c9cc3074a8,
+        type: 2}
+      propertyPath: MoneyBagSpawnPoint
+      value: 
+      objectReference: {fileID: 279733185}
+    - target: {fileID: 114280238685153042, guid: e5115124a081c4141ab712c9cc3074a8,
+        type: 2}
+      propertyPath: worldCamera
+      value: 
+      objectReference: {fileID: 272088326}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e5115124a081c4141ab712c9cc3074a8, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &1538772402
 Prefab:
   m_ObjectHideFlags: 0
