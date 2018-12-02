@@ -42,6 +42,20 @@ public class PlayerController : MonoBehaviour
     private Transform carryPoint;
     private Transform carriedObject;
     private GameController controller;
+
+    public bool IsCarrying
+    {
+        get
+        {
+            return isCarrying;
+        }
+
+        private set
+        {
+            isCarrying = value;
+        }
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -102,7 +116,7 @@ public class PlayerController : MonoBehaviour
             }
             if (Input.GetButtonDown("Fire1"))
             {
-                if (isCarrying)
+                if (IsCarrying)
                 {
                     DoThrow();
                 }
@@ -127,7 +141,7 @@ public class PlayerController : MonoBehaviour
             switch (animState)
             {
                 case AnimState.IDLE:
-                    if (isCarrying)
+                    if (IsCarrying)
                     {
                         spriteRenderer.sprite = carryIdleSprite;
                     }
@@ -142,7 +156,7 @@ public class PlayerController : MonoBehaviour
                     {
                         currentAnimSprite++;
                         currentAnimSprite %= walkSprites.Length;
-                        if (isCarrying)
+                        if (IsCarrying)
                         {
                             spriteRenderer.sprite = carryWalkSprites[currentAnimSprite];
                         }
@@ -170,7 +184,7 @@ public class PlayerController : MonoBehaviour
             carriedObject.SetParent(carryPoint);
             carriedObject.localPosition = Vector3.zero; // at the carry point
             carriedObject.localScale = Vector3.one;
-            isCarrying = true;
+            IsCarrying = true;
             isLifting = false;
             carriedObject.GetComponent<Egg>().Carry(); // assuming only eggs can be carried.
         }
@@ -178,7 +192,7 @@ public class PlayerController : MonoBehaviour
 
     void DoThrow()
     {
-        isCarrying = false;
+        IsCarrying = false;
         carriedObject.SetParent(null);
         carriedObject.GetComponent<Egg>().Throw(throwForce * transform.localScale);
     }

@@ -11,9 +11,12 @@ public class GameController : MonoBehaviour {
     [Header("Game Balance")]
     [SerializeField] private float moneyBagSpawnTime;
     [SerializeField] private int moneyBagValue;
+    [SerializeField] private int HappinessCostShock = 10;
 
     [Header("Current Gameplay Values")]
     [SerializeField] private int money;
+    [SerializeField] private int GodHappiness = 100;
+    [SerializeField] private int EggHappiness = 100;
 
     private bool moneyBagPresent;
     private float moneyBagNextSpawn;
@@ -40,5 +43,10 @@ public class GameController : MonoBehaviour {
         money += moneyBagValue;
         Destroy(moneyObject);
         moneyBagPresent = false;
+    }
+
+    public void RegisterShock()
+    {
+        EggHappiness -= HappinessCostShock;
     }
 }

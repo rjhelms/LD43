@@ -46,6 +46,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1779531684487186
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4886780750857810}
+  m_Layer: 0
+  m_Name: LookOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1886584625008312
 GameObject:
   m_ObjectHideFlags: 0
@@ -81,12 +96,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1123789019991658}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -5, y: 4.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4843492302779976}
   - {fileID: 4106134302041246}
+  - {fileID: 4886780750857810}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -102,6 +118,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4326353384266574}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4886780750857810
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1779531684487186}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.3, y: 0.6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4326353384266574}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &50798963662221702
 Rigidbody2D:
@@ -192,21 +221,25 @@ MonoBehaviour:
   idleSprite: {fileID: 21300000, guid: e811346eb44ab7c4a921a55c6185ee0b, type: 3}
   carriedSprite: {fileID: 21300002, guid: 1290dafcfa523834a876144feb741f50, type: 3}
   crackedSprite: {fileID: 21300002, guid: 216d6e9b2fe995440b22ba4a9a456c10, type: 3}
+  shockedSprite: {fileID: 21300002, guid: 81da3562794c4564eb9eac047190d4bc, type: 3}
   walkSpriteTime: 0.1
   crackedFlashTime: 0.2
-  crackedFlashCount: 10
+  crackedFlashCount: 20
   direction: 1
   movementFactor: 1.5
   isGrounded: 0
   isCarried: 0
   isCracked: 0
+  isShocked: 0
   jumpForce: {x: 0.5, y: 2.5}
   jumpChance: 0.1
-  jumpCheckTime: 2
-  jumpCheckTimeFudge: 0.2
   terrainLayerMask:
     serializedVersion: 2
     m_Bits: 256
+  jumpCheckTime: 2
+  jumpCheckTimeFudge: 0.2
+  shockLookDistance: 3
+  shockedTime: 1
 --- !u!212 &212019274411637508
 SpriteRenderer:
   m_ObjectHideFlags: 1

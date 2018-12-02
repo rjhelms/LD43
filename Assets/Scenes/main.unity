@@ -574,6 +574,34 @@ EdgeCollider2D:
   m_Points:
   - {x: -0.15, y: 0}
   - {x: 0.2, y: 0}
+--- !u!1 &779182123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 779182124}
+  m_Layer: 0
+  m_Name: LookOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &779182124
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 779182123}
+  m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.3, y: 0.6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1061383241}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1061383241 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4352084613194054, guid: 4815d142a7406d248975101fc878bf27,
@@ -625,7 +653,10 @@ MonoBehaviour:
     type: 2}
   moneyBagSpawnTime: 5
   moneyBagValue: 3
+  HappinessCostShock: 10
   money: 3
+  GodHappiness: 100
+  EggHappiness: 100
 --- !u!1 &1088617713
 GameObject:
   m_ObjectHideFlags: 0
@@ -2660,6 +2691,34 @@ TilemapCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+--- !u!1 &1130723859
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1130723860}
+  m_Layer: 0
+  m_Name: LookOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1130723860
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1130723859}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.3, y: 0.6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 511421109}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1163342347
 GameObject:
   m_ObjectHideFlags: 0
@@ -2957,11 +3016,6 @@ Prefab:
     - target: {fileID: 4326353384266574, guid: 9db2d4735a3d7df4e8395b2aa12e745d, type: 2}
       propertyPath: m_RootOrder
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114602912809672074, guid: 9db2d4735a3d7df4e8395b2aa12e745d,
-        type: 2}
-      propertyPath: crackedFlashCount
-      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9db2d4735a3d7df4e8395b2aa12e745d, type: 2}
