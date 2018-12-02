@@ -25,15 +25,15 @@ SPAWNING
 - coins spawn at treasury on a timer - DONE
 
 LEVEL DESIGN
-- one big level - temple and treasury at top, ~3 levels below with houses
+- one big level - temple and treasury at top, ~3 levels below with houses - DONE, could be tweaked
 
 BITS AND BOBS
 - UI
 	- meters for Zeus and Egg happiness - DONE
 	- coin display - DONE
-	- score display - MAYBE
+	- score display - DONE - using time
 - world bounds
-	- bottom: just a floor
+	- bottom: just a floor - DONE
 	- left and right: bouncy walls I guess - DONE
 	- top: probably nothing - DONE (wow!)
 - win/lose screens - TODO
