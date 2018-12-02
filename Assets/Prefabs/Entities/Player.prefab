@@ -209,7 +209,7 @@ MonoBehaviour:
   carryIdleSprite: {fileID: 21300000, guid: 145ef3f316c2a95409ea42e049a4b816, type: 3}
   liftSprite: {fileID: 21300000, guid: c9511d319ac75aa47ad7d5fd5a673b70, type: 3}
   walkSpriteTime: 0.08
-  movementFactor: 5
+  movementFactor: 6
   movementDeadZone: 0.1
   jumpForce: 12
   isGrounded: 0
