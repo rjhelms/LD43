@@ -61,7 +61,7 @@ MonoBehaviour:
   eggSpawnPoints: []
   worldCamera: {fileID: 0}
   happyGodColor: {r: 0.4431373, g: 0.5686275, b: 0.98823535, a: 1}
-  angryGodColor: {r: 0.15686275, g: 0.14117648, b: 0.21568629, a: 0}
+  angryGodColor: {r: 0, g: 0, b: 0, a: 1}
   moneyBagSpawnTime: 5
   moneyBagValue: 3
   eggHappinessCostShock: 10
@@ -78,6 +78,7 @@ MonoBehaviour:
   godHappinessBar: {fileID: 0}
   eggHappinessBar: {fileID: 0}
   coinText: {fileID: 0}
+  timeText: {fileID: 0}
   happinessBarScaleFactor: 0.25
   money: 3
   GodHappiness: 100
