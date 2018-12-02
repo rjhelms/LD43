@@ -9,16 +9,22 @@ public class Egg : MonoBehaviour {
     [SerializeField] private Sprite[] walkSprites;
     [SerializeField] private Sprite idleSprite;
     [SerializeField] private Sprite carriedSprite;
+    [SerializeField] private Sprite crackedSprite;
     [SerializeField] private float walkSpriteTime;
+    [SerializeField] private float crackedFlashTime;
+    [SerializeField] private float crackedFlashCount = 10;
     [SerializeField] private int direction = 1;
+
     private int currentAnimSprite;
     private float nextAnimSpriteTime;
-    private SpriteRenderer spriteRenderer;
+    private int crackedFlash = 0;
 
+    private SpriteRenderer spriteRenderer;
     [Header("Movement Properties")]
     [SerializeField] private float movementFactor;
     [SerializeField] private bool isGrounded = true;
     [SerializeField] private bool isCarried = false;
+    [SerializeField] private bool isCracked = false;
     [SerializeField] private Vector2 jumpForce;
     [SerializeField] private float jumpChance;
     [SerializeField] private float jumpCheckTime;
@@ -88,6 +94,18 @@ public class Egg : MonoBehaviour {
         if (isCarried)
         {
             spriteRenderer.sprite = carriedSprite;
+        } else if (isCracked) {
+            spriteRenderer.sprite = crackedSprite;
+            if (Time.time > nextAnimSpriteTime)
+            {
+                spriteRenderer.enabled = !spriteRenderer.enabled;
+                nextAnimSpriteTime = Time.time + crackedFlashTime;
+                crackedFlash++;
+            }
+            if (crackedFlash >= crackedFlashCount)
+            {
+                Destroy(gameObject);
+            }
         }
         else
         {
@@ -110,6 +128,14 @@ public class Egg : MonoBehaviour {
         }
     }
 
+    void DoCrack()
+    {
+        rigidbody2D.simulated = false;
+        isCracked = true;
+        isCarried = false;
+        nextAnimSpriteTime = Time.time + crackedFlashTime;
+    }
+
     void SetNextJumpCheckTime()
     {
         nextJumpCheckTime = Time.time + jumpCheckTime;
@@ -119,12 +145,15 @@ public class Egg : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Egg Collided: " + collision.collider + collision.otherCollider);
-        if (collision.otherCollider == footCollider)
+        if (collision.collider.tag == "Finish")
+        {
+            DoCrack();
+        } else if (collision.otherCollider == footCollider)
         {
             isGrounded = true;
             turnPoint.enabled = true;
             animState = AnimState.WALKING;
-        } else if (collision.otherCollider.tag == "Enemy")
+        } else if (collision.collider.tag == "Enemy")
         {
             direction *= -1;
         }
