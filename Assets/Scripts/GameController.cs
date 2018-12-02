@@ -78,8 +78,8 @@ public class GameController : MonoBehaviour {
         {
             SceneManager.LoadScene("main");
         }
-        GodHappiness = Mathf.Clamp(GodHappiness, 0, 100);
-        EggHappiness = Mathf.Clamp(EggHappiness, 0, 100);
+        GodHappiness = Mathf.Clamp(GodHappiness, -10, 100);
+        EggHappiness = Mathf.Clamp(EggHappiness, -10, 100);
         worldCamera.backgroundColor = Color.Lerp(angryGodColor, happyGodColor, GodHappiness / 100f);
 		if (Time.time > moneyBagNextSpawn)
         {
@@ -110,15 +110,15 @@ public class GameController : MonoBehaviour {
 
     private void LateUpdate()
     {
-        eggHappinessBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, EggHappiness * happinessBarScaleFactor);
-        godHappinessBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, GodHappiness * happinessBarScaleFactor);
+        eggHappinessBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Mathf.Clamp(EggHappiness, 0, 100) * happinessBarScaleFactor);
+        godHappinessBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Mathf.Clamp(GodHappiness, 0, 100) * happinessBarScaleFactor);
         coinText.text = string.Format("{0}", money);
         timeText.text = string.Format("{0:F0}", Time.timeSinceLevelLoad);
-        if (EggHappiness <= 0)
+        if (EggHappiness <= -10)
         {
             EggLose();
         }
-        else if (GodHappiness <= 0)
+        else if (GodHappiness <= -10)
         {
             GodLose();
         }
