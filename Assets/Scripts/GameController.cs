@@ -55,7 +55,7 @@ public class GameController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        moneyBagNextSpawn = Time.time + moneyBagSpawnTime;
+        moneyBagNextSpawn = Time.time; // spawn money bag on first tick?
         nextGodHappinessTick = Time.time + godHappinessTickGrace;
         nextEggSpawnTick = Time.time + eggSpawnTickLength;
         eggSpawnPoints = GameObject.FindGameObjectsWithTag("Respawn");

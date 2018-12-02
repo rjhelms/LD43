@@ -9,6 +9,7 @@ TagManager:
   - PowerUp
   - Terrain
   - Coin
+  - WorldBounds
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - Goal
   - PowerUp
   - Coin
-  - 
+  - WorldBounds
   - 
   - 
   - 
