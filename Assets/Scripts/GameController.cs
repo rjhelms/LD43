@@ -73,7 +73,6 @@ public class GameController : MonoBehaviour {
             float eggSpawnChance = eggSpawnChanceMin;
             float eggSpawnRange = eggSpawnChanceMax - eggSpawnChanceMin;
             eggSpawnChance += eggSpawnRange * Mathf.Clamp01((eggNumberTarget - currentEggs) / eggNumberTarget);
-            Debug.Log(string.Format("{0} eggs of {1}, chance: {2}", currentEggs, eggNumberTarget, eggSpawnChance));
             if (Random.value < eggSpawnChance)
             {
                 EggSpawn();

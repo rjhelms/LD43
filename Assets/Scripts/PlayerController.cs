@@ -85,6 +85,7 @@ public class PlayerController : MonoBehaviour
             footCollider.enabled = true;
         }
     }
+
     void DoInput()
     {
         float rawInputHoriz = Input.GetAxisRaw("Horizontal");
@@ -180,7 +181,6 @@ public class PlayerController : MonoBehaviour
         if (raycastHit.transform)
         {
             carriedObject = raycastHit.transform;
-            Debug.Log("Lifting " + raycastHit.transform);
             carriedObject.SetParent(carryPoint);
             carriedObject.localPosition = Vector3.zero; // at the carry point
             carriedObject.localScale = Vector3.one;
@@ -201,7 +201,6 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.otherCollider == footCollider)
         {
-            Debug.Log("Landed!");
             isGrounded = true;
         }
     }
