@@ -231,7 +231,7 @@ MonoBehaviour:
   isCarried: 0
   isCracked: 0
   isShocked: 0
-  jumpForce: {x: 0.8, y: 3}
+  jumpForce: {x: 1, y: 3.25}
   jumpChance: 0.2
   terrainLayerMask:
     serializedVersion: 2
