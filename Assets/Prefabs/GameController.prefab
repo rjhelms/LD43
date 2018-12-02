@@ -75,6 +75,9 @@ MonoBehaviour:
   eggSpawnChanceMax: 0.8
   eggSpawnTickLength: 1
   coinTimeout: 3
+  godHappinessBar: {fileID: 0}
+  eggHappinessBar: {fileID: 0}
+  happinessBarScaleFactor: 0.25
   money: 3
   GodHappiness: 100
   EggHappiness: 100

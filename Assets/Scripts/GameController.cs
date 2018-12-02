@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
     [Header("Important Objects")]
@@ -28,6 +29,11 @@ public class GameController : MonoBehaviour {
     [SerializeField] private float eggSpawnChanceMax;
     [SerializeField] private float eggSpawnTickLength;
     [SerializeField] private float coinTimeout;
+
+    [Header("UI Elements")]
+    [SerializeField] private RectTransform godHappinessBar;
+    [SerializeField] private RectTransform eggHappinessBar;
+    [SerializeField] private float happinessBarScaleFactor = 0.25f;
 
     [Header("Current Gameplay Values")]
     [SerializeField] private int money;
@@ -93,6 +99,12 @@ public class GameController : MonoBehaviour {
             }
         }
 	}
+
+    private void LateUpdate()
+    {
+        eggHappinessBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, EggHappiness * happinessBarScaleFactor);
+        godHappinessBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, GodHappiness * happinessBarScaleFactor);
+    }
 
     private void EggSpawn()
     {
