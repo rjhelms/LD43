@@ -211,7 +211,7 @@ MonoBehaviour:
   walkSpriteTime: 0.08
   movementFactor: 6
   movementDeadZone: 0.1
-  jumpForce: 12
+  jumpForce: 10
   isGrounded: 0
   isLifting: 0
   isCarrying: 0

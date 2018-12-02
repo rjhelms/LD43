@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 throwCoinForce;
 
     private float nextLiftTime;
+    private int jumps;
 
     [Header("Coin Properties")]
     [SerializeField] private GameObject coinPrefab;
@@ -117,10 +118,11 @@ public class PlayerController : MonoBehaviour
         rigidbody2D.velocity = new Vector2(moveHoriz, rigidbody2D.velocity.y);
         if (!isLifting)
         {
-            if (Input.GetButtonDown("Fire2") && isGrounded)
+            if (Input.GetButtonDown("Fire2") && jumps < 2)
             {
                 isGrounded = false;
-                rigidbody2D.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+                jumps++;
+                rigidbody2D.AddForce(new Vector2(0, jumpForce / Mathf.Sqrt(jumps)), ForceMode2D.Impulse);
             }
             if (Input.GetButtonDown("Fire1"))
             {
@@ -221,6 +223,7 @@ public class PlayerController : MonoBehaviour
         if (collision.otherCollider == footCollider)
         {
             isGrounded = true;
+            jumps = 0;
         }
     }
 
