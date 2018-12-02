@@ -29,24 +29,25 @@ LEVEL DESIGN
 
 BITS AND BOBS
 - UI
-	- meters for Zeus and Egg happiness - TODO
-	- coin display - TODO
+	- meters for Zeus and Egg happiness - DONE
+	- coin display - DONE
 	- score display - MAYBE
 - world bounds
 	- bottom: just a floor
-	- left and right: bouncy walls I guess - TODO
+	- left and right: bouncy walls I guess - DONE
 	- top: probably nothing - DONE (wow!)
 - win/lose screens - TODO
 - sound / music - TODO
 
 BALANCE
-- tweak jumping behaviour - after there are bounds in place - TODO
+- tweak jumping behaviour - after there are bounds in place - IN PROGRESS
 - spawn tweaking - money and eggs - TODO
 - happiness tweaking
 	- Zeus - rise / fall / grace - TODO
 	- Egg - rise / fall - TODO
 	
 NICE TO HAVE
+- happy egg animation - MAYBE
 - fudge factor for throws - MAYBE
 - score - MAYBE
- 
+- restrict shock / coin up to eggs on screen - MAYBE
