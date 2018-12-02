@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 70000363872140778}
   m_Layer: 0
   m_Name: EggBrown
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -82,7 +82,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1123789019991658}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.942, y: -0.78, z: 0}
+  m_LocalPosition: {x: -3.467, y: -1.7789999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4843492302779976}
@@ -119,7 +119,7 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 2
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
@@ -132,10 +132,10 @@ EdgeCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.3, y: 0.1}
+  m_Offset: {x: 0.2, y: 0.1}
   m_EdgeRadius: 0.0375
   m_Points:
   - {x: 0, y: 0.5}
@@ -200,6 +200,9 @@ MonoBehaviour:
   jumpChance: 0.1
   jumpCheckTime: 2
   jumpCheckTimeFudge: 0.2
+  terrainLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!212 &212019274411637508
 SpriteRenderer:
   m_ObjectHideFlags: 1

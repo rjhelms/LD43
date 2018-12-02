@@ -23,7 +23,7 @@ public class Egg : MonoBehaviour {
     [SerializeField] private float jumpChance;
     [SerializeField] private float jumpCheckTime;
     [SerializeField] private float jumpCheckTimeFudge;
-
+    [SerializeField] private LayerMask terrainLayerMask;
     private float nextJumpCheckTime;
 
     private new Rigidbody2D rigidbody2D;
@@ -42,7 +42,7 @@ public class Egg : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         DoAnimation();
-		if (isGrounded)
+		if (isGrounded && !isCarried)
         {
             if (Time.time > nextJumpCheckTime)
             {
@@ -55,6 +55,9 @@ public class Egg : MonoBehaviour {
             }
             else
             {
+                RaycastHit2D raycastHit = Physics2D.Raycast(transform.position, new Vector2(direction, -1), 0.5f, terrainLayerMask);
+                if (!raycastHit.transform)
+                    direction *= -1;
                 float moveHoriz = direction * movementFactor;
                 rigidbody2D.velocity = new Vector2(moveHoriz, rigidbody2D.velocity.y);
                 transform.localScale = new Vector3(direction, 1, 1);
@@ -72,8 +75,9 @@ public class Egg : MonoBehaviour {
         if (rigidbody2D.velocity.y > 0)
         {
             footCollider.enabled = false;
+            turnPoint.enabled = false;
         }
-        else if (rigidbody2D.velocity.y < -0.1)
+        else if (rigidbody2D.velocity.y < -0.1f)
         {
             footCollider.enabled = true;
         }
@@ -118,8 +122,9 @@ public class Egg : MonoBehaviour {
         if (collision.otherCollider == footCollider)
         {
             isGrounded = true;
+            turnPoint.enabled = true;
             animState = AnimState.WALKING;
-        } else if (collision.otherCollider == turnPoint)
+        } else if (collision.otherCollider.tag == "Enemy")
         {
             direction *= -1;
         }
@@ -127,10 +132,7 @@ public class Egg : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "TurnPoint" && isGrounded)
-            {
-            direction *= -1;
-        }
+        direction *= -1;
     }
 
     public void Carry()
@@ -143,7 +145,9 @@ public class Egg : MonoBehaviour {
     {
         isCarried = false;
         isGrounded = false;
+        turnPoint.enabled = true;
         rigidbody2D.simulated = true;
+        rigidbody2D.velocity = Vector2.zero; // zero out velocity before throwing
         rigidbody2D.AddForce(throwForce, ForceMode2D.Impulse);
         if (throwForce.x < 0)
         {
