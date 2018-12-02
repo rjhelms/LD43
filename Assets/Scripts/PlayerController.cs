@@ -95,12 +95,12 @@ public class PlayerController : MonoBehaviour
         rigidbody2D.velocity = new Vector2(moveHoriz, rigidbody2D.velocity.y);
         if (!isLifting)
         {
-            if (Input.GetButtonDown("Fire1") && isGrounded)
+            if (Input.GetButtonDown("Fire2") && isGrounded)
             {
                 isGrounded = false;
                 rigidbody2D.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             }
-            if (Input.GetButtonDown("Fire2"))
+            if (Input.GetButtonDown("Fire1"))
             {
                 if (isCarrying)
                 {
