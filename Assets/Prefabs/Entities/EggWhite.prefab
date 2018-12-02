@@ -231,13 +231,13 @@ MonoBehaviour:
   isCarried: 0
   isCracked: 0
   isShocked: 0
-  jumpForce: {x: 0.5, y: 2.5}
-  jumpChance: 0.1
+  jumpForce: {x: 0.8, y: 3}
+  jumpChance: 0.2
   terrainLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  jumpCheckTime: 2
-  jumpCheckTimeFudge: 0.2
+  jumpCheckTime: 1.5
+  jumpCheckTimeFudge: 0.3
   shockLookDistance: 3
   shockedTime: 1
 --- !u!212 &212360544735698154
