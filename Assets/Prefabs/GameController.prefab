@@ -68,7 +68,7 @@ MonoBehaviour:
   godHappinessCostTick: 1
   eggHappinessBoostCoin: 15
   godHappinessBoostSacrifice: 10
-  godHappinessTickLength: 0.6
+  godHappinessTickLength: 0.5
   godHappinessTickGrace: 3
   eggNumberTarget: 20
   eggSpawnChanceMin: 0.05
