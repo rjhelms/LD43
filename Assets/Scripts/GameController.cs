@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
     [Header("Important Objects")]
@@ -34,6 +35,7 @@ public class GameController : MonoBehaviour {
     [SerializeField] private RectTransform godHappinessBar;
     [SerializeField] private RectTransform eggHappinessBar;
     [SerializeField] private Text coinText;
+    [SerializeField] private Text timeText;
     [SerializeField] private float happinessBarScaleFactor = 0.25f;
 
     [Header("Current Gameplay Values")]
@@ -67,10 +69,15 @@ public class GameController : MonoBehaviour {
         nextEggSpawnTick = Time.time + eggSpawnTickLength;
         eggSpawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
         currentEggs = EggParent.childCount;
+        Time.timeScale = 1;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        if (Input.GetButtonDown("Reset"))
+        {
+            SceneManager.LoadScene("main");
+        }
         GodHappiness = Mathf.Clamp(GodHappiness, 0, 100);
         EggHappiness = Mathf.Clamp(EggHappiness, 0, 100);
         worldCamera.backgroundColor = Color.Lerp(angryGodColor, happyGodColor, GodHappiness / 100f);
@@ -106,6 +113,27 @@ public class GameController : MonoBehaviour {
         eggHappinessBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, EggHappiness * happinessBarScaleFactor);
         godHappinessBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, GodHappiness * happinessBarScaleFactor);
         coinText.text = string.Format("{0}", money);
+        timeText.text = string.Format("{0:F0}", Time.timeSinceLevelLoad);
+        if (EggHappiness <= 0)
+        {
+            EggLose();
+        }
+        else if (GodHappiness <= 0)
+        {
+            GodLose();
+        }
+    }
+
+    private void EggLose()
+    {
+        Debug.Log("Egg lose!");
+        Time.timeScale = 0;
+    }
+
+    private void GodLose()
+    {
+        Debug.Log("God lose!");
+        Time.timeScale = 0;
     }
 
     private void EggSpawn()
