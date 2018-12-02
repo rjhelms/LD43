@@ -80,6 +80,10 @@ MonoBehaviour:
   coinText: {fileID: 0}
   timeText: {fileID: 0}
   happinessBarScaleFactor: 0.25
+  overlayBlackout: {fileID: 0}
+  overlayStartColor: {r: 0, g: 0, b: 0, a: 1}
+  overlayEndColor: {r: 0, g: 0, b: 0, a: 0}
+  overlayFadeTime: 1
   money: 3
   GodHappiness: 100
   EggHappiness: 100

@@ -37,6 +37,12 @@ public class GameController : MonoBehaviour {
     [SerializeField] private Text coinText;
     [SerializeField] private Text timeText;
     [SerializeField] private float happinessBarScaleFactor = 0.25f;
+    [SerializeField] private Image overlayBlackout;
+    [SerializeField] private Color overlayStartColor;
+    [SerializeField] private Color overlayEndColor;
+    [SerializeField] private float overlayFadeTime;
+
+    private float fadeStartTime;
 
     [Header("Current Gameplay Values")]
     [SerializeField] private int money;
@@ -48,6 +54,7 @@ public class GameController : MonoBehaviour {
     private float nextGodHappinessTick;
     private bool moneyBagPresent;
     private float moneyBagNextSpawn;
+    private float state = 0;
 
     public float CoinTimeout
     {
@@ -69,71 +76,111 @@ public class GameController : MonoBehaviour {
         nextEggSpawnTick = Time.time + eggSpawnTickLength;
         eggSpawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
         currentEggs = EggParent.childCount;
-        Time.timeScale = 1;
+        Time.timeScale = 0;
+        fadeStartTime = Time.unscaledTime;
+        overlayBlackout.color = overlayStartColor;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-        if (Input.GetButtonDown("Reset"))
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (state == 0)
         {
-            SceneManager.LoadScene("main");
-        }
-        GodHappiness = Mathf.Clamp(GodHappiness, -10, 100);
-        EggHappiness = Mathf.Clamp(EggHappiness, -10, 100);
-        worldCamera.backgroundColor = Color.Lerp(angryGodColor, happyGodColor, GodHappiness / 100f);
-		if (Time.time > moneyBagNextSpawn)
-        {
-            moneyBagNextSpawn += moneyBagSpawnTime;
-            if (!moneyBagPresent)
+            overlayBlackout.color = Color.Lerp(overlayStartColor, overlayEndColor,
+                                               (Time.unscaledTime - fadeStartTime) / overlayFadeTime);
+            if (Time.unscaledTime > fadeStartTime + overlayFadeTime)
             {
-                Instantiate(MoneyBagPrefab, MoneyBagSpawnPoint);
-                moneyBagPresent = true;
+                state++;
+                Time.timeScale = 1;
             }
         }
-        if (Time.time > nextGodHappinessTick)
+        else if (state == 1)
         {
-            GodHappiness -= godHappinessCostTick;
-            nextGodHappinessTick = Time.time + godHappinessTickLength;
-        }
-        if (Time.time > nextEggSpawnTick)
-        {
-            nextEggSpawnTick = Time.time + eggSpawnTickLength;
-            float eggSpawnChance = eggSpawnChanceMin;
-            float eggSpawnRange = eggSpawnChanceMax - eggSpawnChanceMin;
-            eggSpawnChance += eggSpawnRange * Mathf.Clamp01((eggNumberTarget - currentEggs) / eggNumberTarget);
-            if (Random.value < eggSpawnChance)
+            if (Input.GetButtonDown("Reset"))
             {
-                EggSpawn();
+                SceneManager.LoadScene("main");
+            }
+            GodHappiness = Mathf.Clamp(GodHappiness, -10, 100);
+            EggHappiness = Mathf.Clamp(EggHappiness, -10, 100);
+            worldCamera.backgroundColor = Color.Lerp(angryGodColor, happyGodColor, GodHappiness / 100f);
+            if (Time.time > moneyBagNextSpawn)
+            {
+                moneyBagNextSpawn += moneyBagSpawnTime;
+                if (!moneyBagPresent)
+                {
+                    Instantiate(MoneyBagPrefab, MoneyBagSpawnPoint);
+                    moneyBagPresent = true;
+                }
+            }
+            if (Time.time > nextGodHappinessTick)
+            {
+                GodHappiness -= godHappinessCostTick;
+                nextGodHappinessTick = Time.time + godHappinessTickLength;
+            }
+            if (Time.time > nextEggSpawnTick)
+            {
+                nextEggSpawnTick = Time.time + eggSpawnTickLength;
+                float eggSpawnChance = eggSpawnChanceMin;
+                float eggSpawnRange = eggSpawnChanceMax - eggSpawnChanceMin;
+                eggSpawnChance += eggSpawnRange * Mathf.Clamp01((eggNumberTarget - currentEggs) / eggNumberTarget);
+                if (Random.value < eggSpawnChance)
+                {
+                    EggSpawn();
+                }
+            }
+        } else if (state > 1)
+        {
+            overlayBlackout.color = Color.Lerp(overlayEndColor, overlayStartColor,
+                                   (Time.unscaledTime - fadeStartTime) / overlayFadeTime);
+            if (Time.unscaledTime > fadeStartTime + overlayFadeTime)
+            {
+                if (state == 2)
+                    SceneManager.LoadScene("eggLose");
+                if (state == 3)
+                    SceneManager.LoadScene("godLose");
             }
         }
-	}
+    }
 
     private void LateUpdate()
     {
-        eggHappinessBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Mathf.Clamp(EggHappiness, 0, 100) * happinessBarScaleFactor);
-        godHappinessBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Mathf.Clamp(GodHappiness, 0, 100) * happinessBarScaleFactor);
-        coinText.text = string.Format("{0}", money);
-        timeText.text = string.Format("{0:F0}", Time.timeSinceLevelLoad);
-        if (EggHappiness <= -10)
+        if (state < 2)
         {
-            EggLose();
-        }
-        else if (GodHappiness <= -10)
-        {
-            GodLose();
+            eggHappinessBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Mathf.Clamp(EggHappiness, 0, 100) * happinessBarScaleFactor);
+            godHappinessBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Mathf.Clamp(GodHappiness, 0, 100) * happinessBarScaleFactor);
+            coinText.text = string.Format("{0}", money);
+            timeText.text = string.Format("{0:F0}", Mathf.Floor(Time.timeSinceLevelLoad));
+            if (EggHappiness <= -10)
+            {
+                EggLose();
+            }
+            else if (GodHappiness <= -10)
+            {
+                GodLose();
+            }
         }
     }
 
     private void EggLose()
     {
+        ScoreManager.Instance.Score = (int)Mathf.Floor(Time.timeSinceLevelLoad);
+        if (ScoreManager.Instance.Score >= ScoreManager.Instance.HiScore)
+            ScoreManager.Instance.HiScore = ScoreManager.Instance.Score;
         Debug.Log("Egg lose!");
         Time.timeScale = 0;
+        fadeStartTime = Time.unscaledTime;
+        state = 2;
     }
 
     private void GodLose()
     {
+        ScoreManager.Instance.Score = (int)Mathf.Floor(Time.timeSinceLevelLoad);
+        if (ScoreManager.Instance.Score >= ScoreManager.Instance.HiScore)
+            ScoreManager.Instance.HiScore = ScoreManager.Instance.Score;
         Debug.Log("God lose!");
         Time.timeScale = 0;
+        fadeStartTime = Time.unscaledTime;
+        state = 3;
     }
 
     private void EggSpawn()
