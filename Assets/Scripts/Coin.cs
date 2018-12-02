@@ -25,7 +25,10 @@ public class Coin : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Terrain")
+        if (collision.tag == "WorldBounds")
+        {
+            rigidbody2D.velocity *= Vector2.left;
+        } else if (collision.tag == "Terrain")
         {
             if (rigidbody2D.velocity.y < 0)
             {
