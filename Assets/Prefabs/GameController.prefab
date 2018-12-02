@@ -74,6 +74,7 @@ MonoBehaviour:
   eggSpawnChanceMin: 0.05
   eggSpawnChanceMax: 0.8
   eggSpawnTickLength: 1
+  coinTimeout: 3
   money: 3
   GodHappiness: 100
   EggHappiness: 100

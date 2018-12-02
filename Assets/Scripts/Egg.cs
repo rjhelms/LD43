@@ -235,7 +235,14 @@ public class Egg : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        direction *= -1;
+        if (collision.tag == "Coin")
+        {
+            controller.EggAppeased(gameObject, collision.gameObject);
+            Destroy(collision.gameObject);
+        } else
+        {
+            direction *= -1;
+        }
     }
 
     public void SetRandomDirection()

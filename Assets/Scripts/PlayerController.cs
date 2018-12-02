@@ -33,14 +33,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float liftTimeOut;
     [SerializeField] private float liftRayCastDistance;
     [SerializeField] private LayerMask liftRayCastMask;
-    [SerializeField] private Vector2 throwForce;
+    [SerializeField] private Vector2 throwEggForce;
+    [SerializeField] private Vector2 throwCoinForce;
+
     private float nextLiftTime;
 
+    [Header("Coin Properties")]
+    [SerializeField] private GameObject coinPrefab;
+    
     private new Rigidbody2D rigidbody2D;
     private Collider2D footCollider;
     private Transform pickupPoint;
     private Transform carryPoint;
     private Transform carriedObject;
+    private Transform coinParent;
     private GameController controller;
 
     public bool IsCarrying
@@ -64,6 +70,7 @@ public class PlayerController : MonoBehaviour
         footCollider = transform.Find("FootCollider").GetComponent<Collider2D>();
         pickupPoint = transform.Find("PickupPoint");
         carryPoint = transform.Find("CarryPoint");
+        coinParent = GameObject.Find("Coins").transform;
         controller = FindObjectOfType<GameController>();
     }
 
@@ -119,12 +126,16 @@ public class PlayerController : MonoBehaviour
             {
                 if (IsCarrying)
                 {
-                    DoThrow();
+                    ThrowEgg();
                 }
                 else
                 {
-                    DoLift();
+                    LiftEgg();
                 }
+            }
+            if (Input.GetButtonDown("Fire3") && !IsCarrying)
+            {
+                ThrowCoin();
             }
         }
     }
@@ -172,7 +183,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void DoLift()
+    void LiftEgg()
     {
         isLifting = true;
         nextLiftTime = Time.time + liftTimeOut;
@@ -190,13 +201,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void DoThrow()
+    void ThrowEgg()
     {
         IsCarrying = false;
         carriedObject.SetParent(controller.EggParent);
-        carriedObject.GetComponent<Egg>().Throw(throwForce * transform.localScale);
+        carriedObject.GetComponent<Egg>().Throw(throwEggForce * transform.localScale);
     }
 
+    void ThrowCoin()
+    {
+        if (controller.TryThrowCoin())
+        {
+            GameObject coin = Instantiate(coinPrefab, carryPoint.position, Quaternion.identity, coinParent);
+            coin.GetComponent<Rigidbody2D>().AddForce(throwCoinForce * transform.localScale, ForceMode2D.Impulse);
+        }
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.otherCollider == footCollider)

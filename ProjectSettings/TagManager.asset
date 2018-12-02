@@ -7,6 +7,8 @@ TagManager:
   - TurnPoint
   - Enemy
   - PowerUp
+  - Terrain
+  - Coin
   layers:
   - Default
   - TransparentFX
@@ -22,7 +24,7 @@ TagManager:
   - Player
   - Goal
   - PowerUp
-  - 
+  - Coin
   - 
   - 
   - 

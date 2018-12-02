@@ -27,6 +27,7 @@ public class GameController : MonoBehaviour {
     [SerializeField] private float eggSpawnChanceMin;
     [SerializeField] private float eggSpawnChanceMax;
     [SerializeField] private float eggSpawnTickLength;
+    [SerializeField] private float coinTimeout;
 
     [Header("Current Gameplay Values")]
     [SerializeField] private int money;
@@ -38,6 +39,19 @@ public class GameController : MonoBehaviour {
     private float nextGodHappinessTick;
     private bool moneyBagPresent;
     private float moneyBagNextSpawn;
+
+    public float CoinTimeout
+    {
+        get
+        {
+            return coinTimeout;
+        }
+
+        private set
+        {
+            coinTimeout = value;
+        }
+    }
 
     // Use this for initialization
     void Start () {
@@ -96,6 +110,16 @@ public class GameController : MonoBehaviour {
         currentEggs--;
     }
 
+    public void EggAppeased(GameObject eggObject, GameObject coinObject)
+    {
+        Coin coin = coinObject.GetComponent<Coin>();
+        if (coin.Active)
+        {
+            coin.Active = false; // deactivate the coin so it's only counted once
+            EggHappiness += eggHappinessBoostCoin;
+        }
+    }
+
     public void GetMoney(GameObject moneyObject)
     {
         money += moneyBagValue;
@@ -107,5 +131,17 @@ public class GameController : MonoBehaviour {
     public void RegisterShock()
     {
         EggHappiness -= eggHappinessCostShock;
+    }
+
+    public bool TryThrowCoin()
+    {
+        if (money > 0)
+        {
+            money--;
+            return true;
+        } else
+        {
+            return false;
+        }
     }
 }
