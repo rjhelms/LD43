@@ -208,6 +208,7 @@ public class Egg : MonoBehaviour {
         isCracked = true;
         isCarried = false;
         nextAnimSpriteTime = Time.time + crackedFlashTime;
+        controller.EggDied();
     }
 
     void SetNextJumpCheckTime()
