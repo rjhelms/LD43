@@ -43,6 +43,7 @@ public class GameController : MonoBehaviour {
         money += moneyBagValue;
         Destroy(moneyObject);
         moneyBagPresent = false;
+        moneyBagNextSpawn += moneyBagSpawnTime;
     }
 
     public void RegisterShock()
