@@ -10,6 +10,7 @@ TagManager:
   - Terrain
   - Coin
   - WorldBounds
+  - MusicPlayer
   layers:
   - Default
   - TransparentFX
