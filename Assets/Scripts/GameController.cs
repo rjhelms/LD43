@@ -107,10 +107,6 @@ public class GameController : MonoBehaviour {
         }
         else if (state == 1)
         {
-            if (Input.GetButtonDown("Reset"))
-            {
-                SceneManager.LoadScene("main");
-            }
             GodHappiness = Mathf.Clamp(GodHappiness, -10, 100);
             EggHappiness = Mathf.Clamp(EggHappiness, -10, 100);
             worldCamera.backgroundColor = Color.Lerp(angryGodColor, happyGodColor, GodHappiness / 100f);

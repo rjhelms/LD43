@@ -86,7 +86,6 @@ public class Egg : MonoBehaviour {
 
     private void Look()
     {
-        Debug.DrawLine(lookOrigin.position, lookOrigin.position + new Vector3(direction * shockLookDistance, 0, 0));
         RaycastHit2D raycastHit = Physics2D.Raycast(lookOrigin.position,
                                                     new Vector2(direction * shockLookDistance, 0),
                                                     shockLookDistance);
